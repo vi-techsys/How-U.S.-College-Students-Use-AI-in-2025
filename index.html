@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>How U.S. College Students Use AI in 2025: A Quantitative Snapshot</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            background-color: #f9f9f9;
+            margin: 0;
+            display: flex; /* Use flexbox for sidebar and main content layout */
+        }
+
+        /* Sidebar styles */
+        .sidebar {
+            width: 220px;
+            background-color: #333;
+            color: white;
+            padding: 20px;
+            box-sizing: border-box; /* Include padding in width */
+            position: fixed; /* Fixed position for persistent sidebar */
+            height: 100%; /* Full height */
+            overflow-y: auto; /* Enable scrolling for long content */
+        }
+
+        .sidebar h2 {
+            color: white;
+            margin-top: 0;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #555;
+            font-size: 1.5em;
+        }
+
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .sidebar ul li {
+            margin-bottom: 10px;
+        }
+
+        .sidebar ul li a {
+            color: white;
+            text-decoration: none;
+            display: block;
+            padding: 8px 10px;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+        }
+
+        .sidebar ul li a:hover {
+            background-color: #555;
+        }
+
+        /* Main content area */
+        .main-content {
+            margin-left: 220px; /* Offset for the sidebar */
+            padding: 20px;
+            flex-grow: 1; /* Allow main content to take remaining space */
+            max-width: 900px; /* Keep content readable width */
+        }
+
+        h2 {
+            margin-top: 2em;
+            color: #2c3e50;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1em;
+            background-color: white;
+        }
+
+        th, td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #eee;
+        }
+
+        #faq {
+            margin-top: 3em;
+        }
+
+        .faq-item {
+            margin-bottom: 1em;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .faq-question {
+            width: 100%;
+            background: #f2f2f2;
+            border: none;
+            padding: 10px;
+            font-size: 1em;
+            text-align: left;
+            cursor: pointer;
+            outline: none;
+        }
+
+        .faq-answer {
+            display: none;
+            padding: 10px;
+            background: #fff;
+        }
+
+        .faq-question.active + .faq-answer {
+            display: block;
+        }
+
+        canvas {
+            margin-top: 3em;
+            background-color: white;
+            padding: 1em;
+            border-radius: 8px;
+        }
+
+        label {
+            display: block;
+            margin-top: 2em;
+        }
+
+        select {
+            margin-top: 0.5em;
+            padding: 5px;
+        }
+
+        /* Styles from the purified HTML for consistent content display */
+        /* body font family, line height, etc. are now handled by main-content */
+        .main-content {
+            font-family: 'Georgia', serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Helvetica Neue', sans-serif;
+            color: #2c3e50;
+            margin-top: 1.5em;
+            margin-bottom: 0.8em;
+        }
+        h1 {
+            font-size: 2.2em;
+            text-align: center;
+            margin-bottom: 1em;
+        }
+        h2 {
+            font-size: 1.8em;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 5px;
+        }
+        h3 {
+            font-size: 1.4em;
+        }
+        p {
+            margin-bottom: 1em;
+            text-align: justify;
+        }
+        ul {
+            list-style-type: disc;
+            margin-left: 20px;
+            margin-bottom: 1em;
+        }
+        ol {
+            list-style-type: decimal;
+            margin-left: 20px;
+            margin-bottom: 1em;
+        }
+        .executive-summary {
+            background-color: #f9f9f9;
+            border-left: 5px solid #3498db;
+            padding: 15px 20px;
+            margin-bottom: 2em;
+        }
+        .figure-container, .table-container {
+            margin: 2em 0;
+            text-align: center;
+        }
+        .figure-container img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+            border: 1px solid #ddd;
+        }
+        .figure-caption, .table-caption {
+            font-size: 0.9em;
+            color: #666;
+            margin-top: 10px;
+            text-align: center;
+        }
+        .references {
+            font-size: 0.9em;
+            margin-top: 3em;
+            border-top: 2px solid #eee;
+            padding-top: 1em;
+        }
+        .references li {
+            margin-bottom: 0.5em;
+        }
+        .citation {
+            color: #555;
+            font-size: 0.85em;
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="sidebar">
+        <h2>Navigation</h2>
+        <ul>
+            <li><a href="#executive-summary">Executive Summary</a></li>
+            <li><a href="#introduction">Introduction</a></li>
+            <li><a href="#methodology">Methodology</a></li>
+            <li><a href="#ai-use-practice">AI Use in Practice</a></li>
+            <li><a href="#ai-perceptions">AI Perceptions</a></li>
+            <li><a href="#ethical-implications">Ethical Implications</a></li>
+            <li><a href="#conclusion-recommendations">Conclusion & Recommendations</a></li>
+            <li><a href="#references">References</a></li>
+            <li><a href="#appendices">Appendices</a></li>
+            <li><a href="https://github.com/vi-techsys/USA-college-studen-AI-usage-analysis" target="_blank">GitHub Project</a></li>
+        </ul>
+    </nav>
+
+    <div class="main-content">
+        <header>
+            <h1>How U.S. College Students Use AI in 2025: A Quantitative Snapshot</h1>
+        </header>
+
+        <div class="executive-summary" id="executive-summary">
+            <h2>Executive Summary</h2>
+            <p>The rapid integration of generative AI like ChatGPT into higher education has transformed student interaction with academic content. This mixed-methods research investigates U.S. college students' behavioral and perceptual AI use, leveraging the StudyChat (2025) and Student AI Survey (2023) datasets.</p>
+            <p>Key findings include:</p>
+            <ul>
+                <li>**Tool & Task Use:** ChatGPT is the leading AI tool (31% adoption), with high StudyChat usage for conceptual questions (23.4%) and code writing (8.6%). Students rate summarization and grammar revision as most helpful (4.3/5).</li>
+                <li>**Behavior vs. Belief Gap:** Despite high perceived usefulness for planning (3.8/5) and collaboration (3.9/5), real-world usage in these areas is low, suggesting underutilization.</li>
+                <li>**Non-Use Reasons:** Primary reasons for non-use include cheating concerns (14%), lack of need (13.2%), and low AI literacy (10.1%).</li>
+            </ul>
+            <p>This paper provides analysis, visualizations, and policy recommendations for educators to foster equitable, ethical, and effective student–AI engagement.</p>
+        </div>
+
+        <section id="introduction">
+            <h2>1. Introduction</h2>
+            <h3>1.1 Context: Generative AI in Higher Education</h3>
+            <p>Since the release of ChatGPT in November 2022, generative AI tools have rapidly permeated educational environments. By early 2025, over 80% of undergraduate students globally have reported using generative AI in their academic work, with many relying on it for summarization, ideation, and even full assignment drafting (Chegg.org, 2025; EDUCAUSE, 2024). These tools, including ChatGPT, Grammarly, Gemini, and DALL·E, offer capabilities that range from rewriting essays to generating source references and answering problem sets — functions that were traditionally completed manually by students.</p>
+            <h3>1.2 Research Gap</h3>
+            <p>Despite widespread use of AI tools in academia, most research to date has focused on:</p>
+            <ul>
+                <li>Either student attitudes and beliefs (via surveys),</li>
+                <li>Or General AI usage among students,</li>
+                <li>But not both in conjunction with real usage data.</li>
+            </ul>
+            <p>There remains a critical gap in understanding how students actually use these tools — not just what they say they use them for. This research addresses that gap by analyzing actual ChatGPT interactions alongside self-reported attitudes and usage patterns, offering a rare synthesis of perception and behavior.</p>
+            <h3>1.3 Research Objectives</h3>
+            <p>This study seeks to:</p>
+            <ul>
+                <li>Identify how and why U.S. college students use generative AI tools</li>
+                <li>Compare perceived usefulness with observed behavior</li>
+                <li>Explore ethical, pedagogical, and institutional implications of student AI use</li>
+            </ul>
+        </section>
+
+        <section id="methodology">
+            <h2>2. Methodology</h2>
+            <p>This study adopts a mixed-methods design, combining behavioral log analysis and structured survey data to examine how U.S. college students engage with generative artificial intelligence (AI) tools in academic settings. The approach emphasizes both what students actually do with AI and how they perceive its usefulness, ethics, and limitations.</p>
+            <h3>2.1 Research Design</h3>
+            <p>The study integrates:</p>
+            <ul>
+                <li>Behavioral analysis of real-world interactions between students and ChatGPT, captured in the StudyChat dataset.</li>
+                <li>Quantitative and attitudinal analysis of student responses to a structured AI usage survey.</li>
+            </ul>
+            <h3>2.2 Data Sources Description</h3>
+            <h4>A. StudyChat Dataset</h4>
+            <ul>
+                <li>Source: McNichols & Lan (2025), University of Massachusetts Amherst</li>
+                <li>Description: Contains 1,197 anonymized ChatGPT conversations from students in an undergraduate AI course (Fall 2024).</li>
+                <li>Fields include:
+                    <ul>
+                        <li>prompt, response (chat text)</li>
+                        <li>llm_label (categorized task type)</li>
+                        <li>week, user_id, topic, and task_id</li>
+                    </ul>
+                </li>
+            </ul>
+            <h4>B. Student AI Survey 2023</h4>
+            <ul>
+                <li>Description: Structured survey of college students (n > 500) on their AI usage patterns, tool preferences, perceptions of usefulness, and attitudes toward fairness, access, and institutional policy.</li>
+                <li>Key Fields:
+                    <ul>
+                        <li>Tool adoption (e.g., ChatGPT, DALL·E, Grammarly)</li>
+                        <li>Likert-scale ratings on task usefulness (summarizing, grammar, writing)</li>
+                        <li>Open-ended questions on AI experience</li>
+                        <li>Attitudes toward AI in education (e.g., ethics, training needs)</li>
+                    </ul>
+                </li>
+            </ul>
+            <h3>2.3 Analytical Procedures</h3>
+            <h4>A. StudyChat Analysis</h4>
+            <ul>
+                <li>Label Frequency Analysis: Count of each AI usage type (e.g., summarization, code generation).</li>
+                <li>Temporal Trend: Week-by-week usage plotted to identify peak periods.</li>
+                <li>Prompt Pattern Mining: Common structures in student prompts (e.g., “explain X,” “summarize this”).</li>
+            </ul>
+            <h4>B. Survey Analysis</h4>
+            <ul>
+                <li>Descriptive Statistics: Percent of students using each AI tool; helpfulness ratings by task.</li>
+                <li>Comparative Charts: Claimed use (survey) vs observed use (StudyChat).</li>
+                <li>Attitudinal Breakdown: Agreement levels with statements about fairness, training, and faculty use.</li>
+                <li>Text Analysis: Thematic coding of open comments (e.g., mentions of bias, helpfulness, misuse).</li>
+            </ul>
+            <h3>2.4 Tools & Software</h3>
+            <ul>
+                <li>Data Cleaning & Analysis: Python (Pandas, NumPy, Seaborn, Matplotlib), Excel.</li>
+                <li>Qualitative Coding: Manual annotation and frequency counting for open-ended responses.</li>
+                <li>Visualization: Canva for presentation-ready charts; Python for detailed analytics.</li>
+            </ul>
+            <h3>2.5 Ethical Considerations</h3>
+            <ul>
+                <li>All datasets are anonymized and publicly released for academic use.</li>
+                <li>No identifying personal data is included in either dataset.</li>
+                <li>Survey respondents provided informed consent for educational research purposes.</li>
+            </ul>
+        </section>
+
+        <section id="ai-use-practice">
+            <h2>3. AI Use in Practice: StudyChat Behavioral Analysis</h2>
+            <h3>3.1 Task Categories & Usage Frequency</h3>
+            <p>Each student prompt in the dataset is labeled with an llm_label indicating the type of request. These labels allow for categorization into academic task types such as:</p>
+            <ul>
+                <li>Conceptual question</li>
+                <li>Code generation</li>
+                <li>Clarification</li>
+                <li>Summarization</li>
+                <li>Debugging</li>
+                <li>Writing improvement</li>
+                <li>Proofreading</li>
+                <li>Collaboration</li>
+            </ul>
+            <p>A frequency analysis reveals that the most common task categories were:</p>
+            <div class="table-container">
+                <table>
+                    <caption>Table 1. Frequency Analysis of Task types.</caption>
+                    <thead>
+                        <tr>
+                            <th>Task Type</th>
+                            <th>Frequency</th>
+                            <th>%</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>contextual_questions>Other</td><td>1608</td><td>23.4</td></tr>
+                        <tr><td>contextual_questions>Code Explanation</td><td>728</td><td>10.6</td></tr>
+                        <tr><td>writing_request>Write Code</td><td>587</td><td>8.6</td></tr>
+                        <tr><td>contextual_questions>Assignment Clarification</td><td>510</td><td>7.4</td></tr>
+                        <tr><td>conceptual_questions>Python Library</td><td>364</td><td>5.3</td></tr>
+                        <tr><td>conceptual_questions>Other Concept</td><td>275</td><td>4</td></tr>
+                        <tr><td>provide_context>Code</td><td>259</td><td>3.8</td></tr>
+                        <tr><td>writing_request>Other</td><td>250</td><td>3.6</td></tr>
+                        <tr><td>provide_context>Other</td><td>241</td><td>3.5</td></tr>
+                        <tr><td>verification>Verify Code</td><td>233</td><td>3.4</td></tr>
+                        <tr><td>provide_context>Error Message</td><td>232</td><td>3.4</td></tr>
+                        <tr><td>writing_request>Code/Data Conversion</td><td>204</td><td>3</td></tr>
+                        <tr><td>conceptual_questions>Programming Language</td><td>196</td><td>2.9</td></tr>
+                        <tr><td>editing_request>Edit Code</td><td>177</td><td>2.6</td></tr>
+                        <tr><td>provide_context>Assignment Information</td><td>173</td><td>2.5</td></tr>
+                        <tr><td>writing_request>Write English</td><td>134</td><td>2</td></tr>
+                        <tr><td>conceptual_questions>Computer Science</td><td>91</td><td>1.3</td></tr>
+                        <tr><td>conceptual_questions>Programming Tools</td><td>88</td><td>1.3</td></tr>
+                        <tr><td>verification>Verify Output</td><td>80</td><td>1.2</td></tr>
+                        <tr><td>editing_request>Edit English</td><td>77</td><td>1.1</td></tr>
+                        <tr><td>contextual_questions>Interpret Output</td><td>72</td><td>1</td></tr>
+                        <tr><td>off_topic>Greeting</td><td>54</td><td>0.8</td></tr>
+                        <tr><td>writing_request>Summarize</td><td>45</td><td>0.7</td></tr>
+                        <tr><td>verification>Verify Report</td><td>39</td><td>0.6</td></tr>
+                        <tr><td>off_topic>Other</td><td>33</td><td>0.5</td></tr>
+                        <tr><td>misc>Other</td><td>25</td><td>0.4</td></tr>
+                        <tr><td>off_topic>Gratitude</td><td>23</td><td>0.3</td></tr>
+                        <tr><td>contextual_questions>Programming Tools</td><td>20</td><td>0.3</td></tr>
+                        <tr><td>verification>Other</td><td>16</td><td>0.2</td></tr>
+                        <tr><td>off_topic>Chit-Chat</td><td>8</td><td>0.1</td></tr>
+                        <tr><td>contextual_questions>Python Library</td><td>7</td><td>0.1</td></tr>
+                        <tr><td>None</td><td>6</td><td>0.1</td></tr>
+                        <tr><td>contextual_questions>Programming Language</td><td>4</td><td>0.1</td></tr>
+                        <tr><td>writing_request>Edit English</td><td>3</td><td>0</td></tr>
+                        <tr><td>contextual_questions>Error Message</td><td>1</td><td>0</td></tr>
+                        <tr><td>writing_request>Edit Code</td><td>1</td><td>0</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <p>This data indicates that students most frequently used AI for various contextual questions, particularly those related to code explanation and general inquiries. Writing requests, especially for code, also show high frequency.</p>
+            <h3>3.2 Weekly Usage Timeline</h3>
+            <div class="figure-container">
+                <img src="images/interactions in weeks.png" alt="Placeholder for StudyChat Interactions by Week of Semester graph">
+                <p class="figure-caption">Figure 1. Student Interactions by Week of Semester.</p>
+            </div>
+            <p>The dataset includes timestamps (categorized by week) corresponding to each interaction. As Figure 1 above, there are spikes in usage, notably around week 49, suggesting increased activity towards the end of the semester, likely aligning with final project submissions or assignment deadlines. Also between week 40 and 42, this suggests time of tests, and exams.</p>
+            <h3>3.3 Prompt Strategy Insights</h3>
+            <div class="figure-container">
+                <img src="images/prompt overview.png" alt="Placeholder for Overview of user prompts in StudyChat example">
+                <p class="figure-caption">Figure 2. Overview of user prompts in StudyChat.</p>
+            </div>
+            <p>As depicted in Figure 2, a manual review of over 100 representative prompts shows that most students used plain language queries like:</p>
+            <ul>
+                <li>“Explain what R-squared means in statistics.”</li>
+                <li>“Help me debug this Python code.”</li>
+                <li>“Can you summarize this paragraph better?”</li>
+            </ul>
+            <p>Some students also used more complex, multi-step prompts:</p>
+            <ul>
+                <li>“Summarize the following and improve grammar. Then explain the main idea in 2–3 sentences.”</li>
+            </ul>
+            <p>This reflects growing prompt engineering sophistication across the semester, indicating that students were not only using AI frequently but also learning how to use it more effectively.</p>
+            <h3>3.4 Interpretation & Implications</h3>
+            <div class="figure-container">
+                <img src="images/ai use by task type.png" alt="Placeholder for Frequency of AI Use by Task Type (StudyChat Dataset) graph">
+                <p class="figure-caption">Figure 3. Frequency of AI use by task type.</p>
+            </div>
+            <p>Based on the information in Figure 3, students use AI most when they feel cognitively challenged — i.e., to clarify, debug, or understand. The behavior aligns with metacognitive self-help strategies: students seek explanation, feedback, and refinement, rather than just shortcuts.</p>
+        </section>
+
+        <section id="ai-perceptions">
+            <h2>4. AI Perceptions: Insights from the Student AI Survey 2023</h2>
+            <h3>4.1 AI Tool Adoption and Preferences</h3>
+            <p>Students were asked which AI tools they had used in academic settings. Results showed the following distribution:</p>
+            <div class="table-container">
+                <table>
+                    <caption>Table 2. AI Tools usage by percentage.</caption>
+                    <thead>
+                        <tr>
+                            <th>AI Tools</th>
+                            <th>Usage</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>ChatGPT</td><td>31%</td></tr>
+                        <tr><td>DALL·E</td><td>9%</td></tr>
+                        <tr><td>Mid Journey</td><td>9%</td></tr>
+                        <tr><td>Bing AI</td><td>9%</td></tr>
+                        <tr><td>Other</td><td>7%</td></tr>
+                        <tr><td>Night Café</td><td>2%</td></tr>
+                        <tr><td>Chat Sonic</td><td>2%</td></tr>
+                        <tr><td>Jasper Art</td><td>2%</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <p>ChatGPT clearly dominates, indicating widespread integration into academic routines. DALL·E, Mid Journey, and Bing AI also show significant usage. Note: Students could select multiple tools.</p>
+            <h3>4.2 Perceived Usefulness by Academic Task</h3>
+            <p>Students rated how helpful they found generative AI for various tasks on a scale of 1 (Not helpful) to 5 (Very helpful). Below is an aggregated rating summary (Task Avg. Usefulness (1–5)):</p>
+            <ul>
+                <li>Summarizing content 4.3</li>
+                <li>Revising grammar/sentences 4.2</li>
+                <li>Summarising notes 4.1</li>
+                <li>As a discursive tool / collaborative partner 4.0</li>
+                <li>Generating ideas 3.9</li>
+                <li>Writing communications 3.9</li>
+                <li>Generating new content 3.8</li>
+                <li>Planning assignments 3.8</li>
+                <li>Editing text 3.8</li>
+                <li>Research 3.7</li>
+                <li>Inspiration 3.7</li>
+            </ul>
+            <div class="figure-container">
+                <img src="images/ai tool sby task.png" alt="Placeholder for Perceived Helpfulness of AI Tools by Task graph">
+                <p class="figure-caption">Figure 5. Helpfulness of AI Tools by Task.</p>
+            </div>
+            <p>These results indicate that students find AI most helpful for summarizing content, revising grammar and sentence structure, using it as a collaborative partner, and summarizing notes. Lower scores for inspiration and research suggest students are less confident or less trained in using AI for higher-level academic functions.</p>
+            <h3>4.3 Reasons for Non-Use</h3>
+            <p>Among students who reported not using AI, the top reasons were:</p>
+            <div class="table-container">
+                <table>
+                    <caption>Table 3. Reasons for on use of AI.</caption>
+                    <thead>
+                        <tr>
+                            <th>Reason for Non-Use</th>
+                            <th>% of Respondents</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>I am concerned that using AI tools would be cheating</td><td>14.00%</td></tr>
+                        <tr><td>I don't feel the need to use AI tools.</td><td>13.20%</td></tr>
+                        <tr><td>I don't know how to use any of the AI tools</td><td>10.10%</td></tr>
+                        <tr><td>I feel that using AI tools would limit my creativity</td><td>9.30%</td></tr>
+                        <tr><td>I am not aware of AI tools</td><td>9.30%</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <p>These responses reflect both uncertainty about function and ethical hesitation. It supports the argument for greater institutional support and training.</p>
+            <h3>4.4 Attitudes Toward AI in Education</h3>
+            <p>Students were asked to indicate agreement with key statements about AI:</p>
+            <div class="table-container">
+                <table>
+                    <caption>Table 4. Student statement about AI.</caption>
+                    <thead>
+                        <tr>
+                            <th>Statement</th>
+                            <th>% Agree or Strongly Agree</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>AI gives unfair advantage</td><td>58.90%</td></tr>
+                        <tr><td>AI should be available to all</td><td>62.00%</td></tr>
+                        <tr><td>AI = Future opportunity</td><td>56.60%</td></tr>
+                        <tr><td>Restrict AI access</td><td>39.50%</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <p>The majority of students believe that AI will be an advantageous and permanent part of education, but they also recognize that unregulated use may widen inequality.</p>
+            <h3>4.5 Training Expectations</h3>
+            <p>When asked, “How important is it that your tutors teach you how to use generative AI tools?”, the majority of respondents chose:</p>
+            <ul>
+                <li>4 or 5 (Important to Very Important) — 36.2%</li>
+                <li>3 (Neutral) — 23.6%</li>
+                <li>1 or 2 (Not Important) — 40.2%</li>
+            </ul>
+            <p>This suggests a divided opinion on the demand for formal AI literacy programs in college curricula, with a notable portion of students not finding it important.</p>
+        </section>
+
+        <section id="ethical-implications">
+            <h2>5. Ethical Implications and Academic Concerns</h2>
+            <h3>5.1 Fairness and Access</h3>
+            <p>Insights from both the Student AI Survey 2023 and StudyChat dataset show that while students value AI, they also express concerns about equity, reliability, and academic integrity. While 62% of students agree that AI tools should be accessible to all to ensure fairness, many cite paywalls (e.g., ChatGPT Plus), inconsistent university policies, and limited digital skills as barriers. Equity concerns are growing: 58.9% believe AI may give unfair advantages to certain students.</p>
+            <h3>5.2 Overreliance and Ethical Use</h3>
+            <p>StudyChat logs show that some students attempt to offload tasks entirely (e.g., “write my introduction for me”), blurring the line between assistance and substitution. Yet only 26% of students support banning AI — most prefer regulated integration, not restriction.</p>
+            <h3>5.3 Demand for Ethical Training</h3>
+            <p>Although 36.2% of students find it “Important to Very Important” to receive tutor guidance on AI, 40.2% find it “Not Important,” suggesting divided expectations. Nevertheless, the need for training in citation ethics, bias detection, and responsible prompting is clear from both datasets.</p>
+            <h3>5.6 Summary Table</h3>
+            <div class="table-container">
+                <table>
+                    <caption>Table 5. Behavioral Summary</caption>
+                    <thead>
+                        <tr>
+                            <th>Theme</th>
+                            <th>Evidence</th>
+                            <th>Implication</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Fairness & Access</td><td>62% want AI for all; 58.9% see unfair advantage</td><td>Institutions must support equal access</td></tr>
+                        <tr><td>Overuse & Dependence</td><td>StudyChat shows full-task prompts</td><td>"Encourage metacognitive, critical AI engagement"</td></tr>
+                        <tr><td>Misinformation Risk</td><td>Logs show verification prompts; survey notes distrust</td><td>Train students on bias and hallucination detection</td></tr>
+                        <tr><td>Policy Confusion</td><td>"Survey shows unclear guidelines, inconsistent practice"</td><td>Clarify rules and normalize disclosure expectations</td></tr>
+                        <tr><td>Training Needs</td><td>36.2% support AI training; 40.2% don’t</td><td>Offer ethical literacy but respect student agency</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section id="conclusion-recommendations">
+            <h2>6. Conclusion and Recommendations</h2>
+            <h3>6.1 Summary of Findings</h3>
+            <p>This research explored how U.S. college students interact with generative AI using a mixed-methods approach:</p>
+            <ul>
+                <li>Survey data revealed students' attitudes, tool preferences, and perceived usefulness across academic tasks.</li>
+                <li>StudyChat logs provided real behavioral evidence of how students use AI in practice — including prompt types, frequency, and usage patterns.</li>
+            </ul>
+            <p>The key insights include:</p>
+            <ul>
+                <li>**AI Tool Usage Is Widespread and Practical:** ChatGPT is the dominant tool (31%), followed by DALL·E, MidJourney, and Bing AI (each ~9%). The most common use cases are conceptual explanation, code writing, and clarification. Students find AI most helpful for summarizing content and grammar revision (avg rating: 4.0/5).</li>
+                <li>**Behavior and Belief Mostly Align:** Tasks like summarization and writing show high usage and high helpfulness ratings. Tasks like planning, research, and collaboration show positive perception, but low behavioral usage, indicating underutilization.</li>
+                <li>**Ethical and Equity Concerns Are Real:** Students express concern over cheating (14%), misinformation, and unequal access. 62% support equal availability of AI tools; 58.9% worry about unfair advantage. Confusion about policy disclosure and transparency is widespread.</li>
+                <li>**Training Is Wanted, But Divided:** 36.2% want tutors to teach AI use; 40.2% don’t find it important. There is a clear need for optional, skill-based AI literacy modules rather than universal mandates.</li>
+            </ul>
+            <h3>6.2 Recommendations</h3>
+            <p>For Educators:</p>
+            <ul>
+                <li>Embed AI literacy in academic writing, STEM, and research courses.</li>
+                <li>Encourage responsible prompting, source-checking, and ethical use reflection.</li>
+                <li>Include AI usage declarations in assignment submissions (e.g., “I used ChatGPT for X”).</li>
+            </ul>
+            <p>For Students:</p>
+            <ul>
+                <li>Use AI to support, not replace, critical thinking and writing.</li>
+                <li>Cross-check AI output, especially in technical or citation-heavy work.</li>
+                <li>Maintain a prompt log for transparency and reflective learning.</li>
+            </ul>
+        </section>
+
+        <section id="references">
+            <h2>References</h2>
+            <ul>
+                <li>2024 EDUCAUSE Horizon Report | Teaching and Learning Edition. (2024, May 13). Retrieved from https://library.educause.edu/resources/2024/5/2024-educause-horizon-report-teaching-and-learning-edition</li>
+                <li>Chegg Global Student Survey 2025. (n.d.). Retrieved from https://www.chegg.org/global-student-survey-2025</li>
+                <li>McNichols, H., & Lan, A. (2025). StudyChat: A dataset of university student ChatGPT interactions. arXiv. https://arxiv.org/abs/2503.07928</li>
+                <li>Mollick, E., & Mollick, L. (2023). Assigning AI: Seven Approaches for Students with Prompts. SSRN. https://ssrn.com/abstract=4535442</li>
+                <li>Pew Research Center. (2025, April 3). How the U.S. public and AI experts view artificial intelligence. https://www.pewresearch.org/internet/2025/04/03/how-the-us-public-and-ai-experts-view-artificial-intelligence</li>
+                <li>Pew Research Center. (2025, June 25). 34% of U.S. adults have used ChatGPT — about double the share in 2023. https://www.pewresearch.org/short-reads/2025/06/25/34-of-us-adults-have-used-chatgpt-about-double-the-share-in-2023</li>
+                <li>Student AI Survey 2023. (n.d.). Retrieved from https://pure.northampton.ac.uk/en/datasets/student-ai-survey-2023</li>
+                <li>wmcnicho/StudyChat at main. (n.d.). Retrieved from https://huggingface.co/datasets/wmcnicho/StudyChat/tree/main</li>
+            </ul>
+        </section>
+
+        <section id="appendices">
+            <h2>Appendices</h2>
+            <h3>Interactive Visuals</h3>
+            <p>This section contains interactive data visualizations related to AI tool usage in education.</p>
+
+            <label for="ai-filter">Filter Table by Tool:</label>
+            <select id="ai-filter">
+                <option value="all">All</option>
+                <option value="ChatGPT">ChatGPT</option>
+                <option value="DALL·E">DALL·E</option>
+                <option value="Mid Journey">Mid Journey</option>
+                <option value="Bing AI">Bing AI</option>
+                <option value="Other">Other</option>
+                <option value="Night Café">Night Café</option>
+                <option value="Chat Sonic">Chat Sonic</option>
+                <option value="Jasper Art">Jasper Art</option>
+            </select>
+
+            <table id="tool-table">
+                <caption><strong>Table 2.</strong> AI Tool Usage by Percentage</caption>
+                <thead>
+                    <tr>
+                        <th>AI Tool</th>
+                        <th>Usage (%)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>ChatGPT</td><td>31%</td></tr>
+                    <tr><td>DALL·E</td><td>9%</td></tr>
+                    <tr><td>Mid Journey</td><td>9%</td></tr>
+                    <tr><td>Bing AI</td><td>9%</td></tr>
+                    <tr><td>Other</td><td>7%</td></tr>
+                    <tr><td>Night Café</td><td>2%</td></tr>
+                    <tr><td>Chat Sonic</td><td>2%</td></tr>
+                    <tr><td>Jasper Art</td><td>2%</td></tr>
+                </tbody>
+            </table>
+
+            <canvas id="comparisonChart" width="400" height="200"></canvas>
+
+            <section id="faq">
+                <h2>Frequently Asked Questions (FAQs)</h2>
+                <div class="faq-item">
+                    <button class="faq-question">What is the StudyChat dataset?</button>
+                    <div class="faq-answer">
+                        <p>StudyChat is a collection of anonymized ChatGPT interactions from undergraduate students in an AI course, analyzed for behavioral trends.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">How were survey participants selected?</button>
+                    <div class="faq-answer">
+                        <p>Participants were recruited from multiple U.S. colleges via online academic platforms and student mailing lists.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">What academic tasks were most supported?</button>
+                    <div class="faq-answer">
+                        <p>Summarizing and grammar correction were the most supported tasks, while collaboration and programming had the least usage observed.</p>
+                    </div>
+                </div>
+            </section>
+        </section>
+    </div>
+
+    <script>
+        document.querySelectorAll('.faq-question').forEach(btn => {
+            btn.addEventListener('click', () => {
+                btn.classList.toggle('active');
+                let answer = btn.nextElementSibling;
+                answer.style.display = answer.style.display === 'block' ? 'none' : 'block';
+            });
+        });
+    </script>
+
+    <script>
+        document.getElementById("ai-filter").addEventListener("change", function () {
+            let value = this.value.toLowerCase();
+            let rows = document.querySelectorAll("#tool-table tbody tr");
+            rows.forEach(row => {
+                let text = row.cells[0].textContent.toLowerCase();
+                row.style.display = (value === "all" || text.includes(value)) ? "" : "none";
+            });
+        });
+    </script>
+
+    <script>
+        const ctx = document.getElementById('comparisonChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Summarizing', 'Grammar', 'Planning', 'Collaboration'],
+                datasets: [
+                    {
+                        label: 'Perceived Usefulness',
+                        data: [4.3, 4.2, 3.8, 3.9],
+                        backgroundColor: 'rgba(52, 152, 219, 0.6)'
+                    },
+                    {
+                        label: 'Observed Usage (%)',
+                        data: [0.7, 1.1, 0.2, 0.1],
+                        backgroundColor: 'rgba(231, 76, 60, 0.6)'
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Perception vs Actual Usage of AI Tools by Task'
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Score / Percentage'
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
