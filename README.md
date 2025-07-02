@@ -1,5 +1,4 @@
-# AI Use in Higher Education: A Mixed-Methods Study of Student Behavior and Perception
-
+# How U.S. College Students Use AI in 2025: A Quantitative Snapshot
 This repository contains the HTML implementation of a mixed-methods study investigating U.S. college students' behavioral and perceptual AI use in academic settings. The interactive webpage presents key findings, data visualizations, and frequently asked questions based on analysis of the StudyChat (2025) and Student AI Survey (2023) datasets.
 
 ## Table of Contents
